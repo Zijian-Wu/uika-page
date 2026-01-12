@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UIKA: Fast Universal Head Avatar from Pose-Free Images</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/uika_svg.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UIKA: Fast Universal Head Avatar from Pose-Free Images</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zijian-wu.github.io/">Zijian Wu</a><sup>1,2,*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yaourtb.github.io/">Boyao Zhou</a><sup>2,†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://huliangxiao.github.io/">Liangxiao Hu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://kumapowerliu.github.io/">Hongyu Liu</a><sup>2,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://github.com/YuanSun-XJTU/">Yuan Sun</a><sup>2,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://xuanwangvc.github.io/">Xuan Wang</a><sup>2,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cite.nju.edu.cn/People/Faculty/20190621/i5054.html/">Xun Cao</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://shenyujun.github.io/">Yujun Shen</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://zhuhao.cc/home/">Hao Zhu</a><sup>1,✉</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 authors-affiliations">
+            <span class="author-block"><sup>1</sup>Nanjing University,</span>
+            <span class="author-block"><sup>2</sup>Ant Group,</span>
+            <span class="author-block"><sup>3</sup>HKUST,</span>
+            <span class="author-block"><sup>4</sup>Xi'an Jiaotong University</span>
+          </div>
+
+          <div class="is-size-6 authors-notes">
+            <span class="author-block"><sup>*</sup>Work done during an internship at Ant Group,&nbsp;</span>
+            <span class="author-block"><sup>†</sup>Project lead,&nbsp;</span>
+            <span class="author-block"><sup>✉</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- <a href="https://arxiv.org/pdf/2011.12948" -->
+                <a href="./static/images/UIKA_arXiv.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Zijian-Wu/uika"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <!-- <div class="container is-max-desktop"> -->
+  <div class="container">
+    <div class="hero-body">
+      <img id="teaser" src="./static/images/uika_teaser.jpg" alt="Teaser Image" style="width:100%; height:auto; display:block;">
+      <h2 class="subtitle">
+        We present UIKA, a novel <b>feed-forward</b> approach for high-fidelity 3D Gaussian head avatar reconstruction from <b>an arbitrary number</b> of input images (e.g., <i>a single portrait image</i> or <i>multi-view captures</i>) <b>without requiring</b> extra camera or expression annotations.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present UIKA, a feed-forward animatable Gaussian head model from an arbitrary number of unposed inputs, including a single image, multi-view captures, and smartphone-captured videos. Unlike the traditional avatar method, which requires a studio-level multi-view capture system and reconstructs a human-specific model through a long-time optimization process, we rethink the task through the lenses of model representation, network design, and data preparation. First, we introduce a UV-guided avatar modeling strategy, in which each input image is associated with a pixel-wise facial correspondence estimation. Such correspondence estimation allows us to reproject each valid pixel color from screen space to UV space, which is independent of camera pose and character expression. Furthermore, we design learnable UV tokens on which the attention mechanism can be applied at both the screen and UV levels. The learned UV tokens can be decoded into canonical Gaussian attributes using aggregated UV information from all input views. To train our large avatar model, we additionally prepare a large-scale, identity-rich synthetic training dataset. Our method significantly outperforms existing approaches in both monocular and multi-view settings.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section hero">
+  <!-- <div class="container is-max-desktop"> -->
+  <div class="container">
+    <!-- Paper pipeline. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <img id="method" src="./static/images/uika_pipeline.jpg" alt="Method Image" style="width: auto; height: auto;">
+        <h2 class="pipeline">
+          <div class="content has-text-justified">
+            <b>Pipeline Overview</b>. Given a set of unposed input images, our pipeline begins with a facial correspondence estimator that predicts UV coordinates for valid facial pixels, and the corresponding colors are reprojected onto the shared UV space. The source images (screen space) and reprojected images (UV space) are encoded through two dedicated encoders, producing multi-scale features from both screen space and UV space. We then apply screen attention and UV attention to inject these into learnable UV tokens, which are then decoded into UV Gaussian attribute maps while incorporating the aggregated color and confidence map. The resulting canonical Gaussian head avatar supports animation via standard linear blend skinning and achieves real-time rendering at 220 FPS.
+          </div>
+        </h2>
+      </div>
+    </div>
+    <!--/ Paper pipeline. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<!-- Video carousel -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3 has-text-centered">Synthetic dataset visualization</h2>
+          <video id="synth_data" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/synth_data_show.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<!-- Video carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Self reenactment results</h2>
+      <div id="self-results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="self_video1" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self5.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="self_video2" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self6.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="self_video3" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video4">
+          <video poster="" id="self_video4" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video5">
+          <video poster="" id="self_video5" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video6">
+          <video poster="" id="self_video6" autoplay controls muted loop width="100%" preload="metadata">
+            <source src="static/videos/self_reen/self4.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<!-- Video carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Cross reenactment results</h2>
+      <div id="cross-results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="cross_video1" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross5.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="cross_video2" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross6.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="cross_video3" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video4">
+          <video poster="" id="cross_video4" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video5">
+          <video poster="" id="cross_video5" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video6">
+          <video poster="" id="cross_video6" autoplay controls muted loop height="100%" preload="metadata">
+            <source src="static/videos/cross_reen/cross4.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<!-- Video carousel -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3 has-text-centered">Ablation study</h2>
+          <video id="ablation" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/abla.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<!-- Video carousel -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3 has-text-centered">In-the-wild results</h2>
+          <video id="wild" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/apps.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<!-- Video carousel -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3 has-text-centered">Smartphone-captured results</h2>
+          <video id="smartphone_results" autoplay controls muted loop playsinline width="100%">
+            <source src="./static/videos/smartphone_capture.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+  </div>
+</section>
+<!-- End video carousel -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Concurrent to our research, several excellent works have been introduced for 3D head reconstruction.
+          </p>
+          <p>
+            For single-image inputs, <a href="https://tobias-kirschstein.github.io/flexavatar/">FlexAvatar (Kirschstein et al.)</a> focuses on generating high-fidelity complete avatars, 
+            while <a href="https://antoniooroz.github.io/PercHead/">PercHead</a> and <a href="https://hliang2.github.io/FastAvatar/">FastAvatar (Liang et al.)</a> explore semantic editing and pose-invariant reconstruction, respectively.
+          </p>
+          <p>
+            Additionally, <a href="https://openreview.net/forum?id=E7VL9Zl1Nc">FastGHA</a> introduces a method for real-time animatable 3D head avatar reconstruction from four fixed input images, following a setting similar to <a href="https://tobias-kirschstein.github.io/avat3r/">Avat3r</a>.
+          </p>
+          <p>
+            Sharing a similar setting to ours, <a href="https://pengc02.github.io/flexavatar/">FlexAvatar (Peng et al.)</a> and <a href="https://tyrionwuyue.github.io/project_FastAvatar/">FastAvatar (Wu et al.)</a> propose feed-forward frameworks for fast reconstruction from an arbitrary number of input images.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{wu2025uika,
+  author    = {Wu, Zijian and Zhou, Boyao and Hu, Liangxiao and Liu, Hongyu and Sun, Yuan and Wang, Xuan and Cao, Xun and Shen, Yujun and Zhu, Hao},
+  title     = {UIKA: Fast Universal Head Avatar from Pose-Free Images},
+  journal   = {arXiv preprint arXiv:},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This webpage is built with the template from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>.
+          </p>
+          <p>
+            We sincerely thank <a href="https://keunhong.com/">Keunhong Park</a> for developing and open-sourcing this template.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
